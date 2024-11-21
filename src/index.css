@@ -1,0 +1,81 @@
+/* Header */
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background: rgba(0, 0, 0, 0.9);
+}
+
+.header .logo {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.header .nav-link {
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.header .nav-link:hover {
+  color: #28a745; /* Verde */
+}
+
+/* Hero Section */
+.hero-section {
+  color: white;
+  text-shadow: 0 2px 5px rgba(0, 0, 0, 0.7);
+}
+
+.hero-section .btn-lg {
+  padding: 15px 40px;
+  font-size: 1.2rem;
+}
+
+/* Features Section */
+.features .feature-card {
+  border-radius: 10px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.features .feature-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+}
+
+.features .btn-outline-primary,
+.features .btn-outline-success,
+.features .btn-outline-danger {
+  font-weight: bold;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.features .btn-outline-primary:hover {
+  background-color: #007bff;
+  color: white;
+}
+
+.features .btn-outline-success:hover {
+  background-color: #28a745;
+  color: white;
+}
+
+.features .btn-outline-danger:hover {
+  background-color: #dc3545;
+  color: white;
+}
+
+/* Footer */
+.footer {
+  background: #333;
+  font-size: 0.9rem;
+}
+
+.footer a {
+  color: #28a745;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.footer a:hover {
+  color: #ffffff;
+}
