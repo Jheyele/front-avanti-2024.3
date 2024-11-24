@@ -1,12 +1,15 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { buscarUsuarios, deleteUsuario } from "../services/ApiService";
 import { useNavigate } from "react-router-dom";
 import { Modal } from "react-bootstrap";
+import { AuthContext } from "../contexts/AuthContext";
 
 function UsuariosLista() {
   const [usuarios, setUsuarios] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [userToDelete, setUserToDelete] = useState(null);
+  const [search, setSearch] = useState("");
+  const { usuarioId } = useContext(AuthContext);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -30,11 +33,25 @@ function UsuariosLista() {
     setShowModal(true);
   };
 
+  const filtroUsuarios = usuarios.filter((usuario) =>
+    ["nome","email","perfil"].some((key) =>
+      usuario[key].toLowerCase().includes(search.toLowerCase())
+    )
+  );
+
   return (
     <div className="container py-5">
       <h2 className="mb-5 text-center text-primary font-weight-bold">Lista de Usuários</h2>
+      <div className="mb-4">
+        <input 
+          type="text"
+          className="form-control"
+          placeholder="Buscar por nome e email..."
+          onChange={(e) => setSearch(e.target.value)}
+        />
+      </div>
       <div className="row row-cols-1 row-cols-md-3 g-4">
-        {usuarios.map((usuario) => (
+        {filtroUsuarios.map((usuario) => (
           <div key={usuario.id} className="col">
             <div className="card shadow-lg border-0 rounded-3 overflow-hidden h-100">
               <div className="card-img-top d-flex justify-content-center">
@@ -53,21 +70,23 @@ function UsuariosLista() {
                   <strong>Perfil:</strong> {usuario.perfil}
                 </p>
               </div>
-
-              <div className="card-footer d-flex justify-content-around align-items-center bg-light border-top-0">
-                <button
-                  className="btn btn-primary btn-sm rounded-pill"
-                  onClick={() => navigate(`/usuarios-form/${usuario.id}`)}
-                >
-                  <i className="bi bi-pencil-square"></i> Editar
-                </button>
-                <button
-                  className="btn btn-danger btn-sm rounded-pill"
-                  onClick={() => handleDeleteClick(usuario.id)}
-                >
-                  <i className="bi bi-trash"></i> Excluir
-                </button>
-              </div>
+              {
+                usuarioId === usuario.id &&
+                  <div className="card-footer d-flex justify-content-around align-items-center bg-light border-top-0">
+                    <button
+                      className="btn btn-primary btn-sm rounded-pill"
+                      onClick={() => navigate(`/usuarios-form/${usuario.id}`)}
+                    >
+                      <i className="bi bi-pencil-square"></i> Editar
+                    </button>
+                    <button
+                      className="btn btn-danger btn-sm rounded-pill"
+                      onClick={() => handleDeleteClick(usuario.id)}
+                    >
+                      <i className="bi bi-trash"></i> Excluir
+                    </button>
+                  </div>
+              }             
             </div>
           </div>
         ))}

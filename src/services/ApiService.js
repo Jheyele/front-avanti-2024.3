@@ -18,3 +18,5 @@ export const buscarAgendamentoPorId = (id) => api.get(`/agendamentos/${id}`)
 export const salvarAgendamento = (agendamento) => api.post(`/agendamentos`, agendamento)
 export const editarAgendamento = (agendamento, id) => api.put(`/agendamentos/${id}`, agendamento)
 export const excluirAgendamento = (id) => api.delete(`/agendamentos/${id}`)
+
+export const login = (email, senha) => api.post(`/login`, {email, senha})

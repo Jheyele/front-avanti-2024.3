@@ -1,13 +1,15 @@
 import { useNavigate, useParams } from "react-router-dom";
-import { buscarAgendamentoPorId, editarAgendamento, salvarAgendamento } from "../services/apiService";
+import { buscarAgendamentoPorId, editarAgendamento, salvarAgendamento } from "../services/ApiService";
 import { useForm } from "react-hook-form";
-import { useEffect } from "react";
+import { useContext, useEffect } from "react";
 import { format } from "date-fns";
+import { AuthContext } from "../contexts/AuthContext";
 
 
 function AgendamentosForm() {
   const { register, handleSubmit, reset, formState: { errors } } = useForm();
   const navigate = useNavigate();
+  const { usuarioId } = useContext(AuthContext);
   const { id } = useParams();
 
   useEffect(() => {
@@ -33,7 +35,7 @@ function AgendamentosForm() {
       } else {
         await salvarAgendamento({
           ...data,
-          usuarioId: "8a746df9-6c1d-435e-bdac-cd6faa969a7d"});
+          usuarioId});
       }
       reset();
       navigate("/agendamentos");
